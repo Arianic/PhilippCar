@@ -1,3 +1,3 @@
-# catcar
+# PhilippCar
 My first pygame project
 
