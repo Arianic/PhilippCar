@@ -75,7 +75,15 @@ def boosts(boostcount):
 def things(thingx, thingy, thingx1, thingy1):
 	gameDisplay.blit(dog, (thingx, thingy))
 	gameDisplay.blit(dog, (thingx1, thingy1))
-    	
+ 
+
+
+
+def high_score(score):
+	score_list = [0]
+	if score > score_list[0]:
+		score_list = [score]
+		print(str(score_list[0]))
     
     	
 
@@ -260,6 +268,7 @@ def game_loop():
 		car(x,y)
 		things_dodged(dodged)
 		boosts(boostcount)
+		high_score(dodged)
 		thing_width1 = thing_startx +85
 		thing_height1 = thing_starty +85
 
@@ -273,7 +282,7 @@ def game_loop():
 		if thing_starty and thing_starty-300 > display_height:
 			thing_starty = 0 - 52
 			thing_startx = random.randrange(0,display_width)
-			dodged += 1
+			dodged += 2
 			thing_speed += 0.4
 		
 		if thing_starty > y + 60:
