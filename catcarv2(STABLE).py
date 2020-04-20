@@ -5,9 +5,6 @@ import random
 
 ''' 
 TODO:
-
-
-
 Far future:
 jump function? (sideways boxes)
 auto update with esky and webdav?
@@ -77,15 +74,14 @@ def things(thingx, thingy, thingx1, thingy1):
 	gameDisplay.blit(dog, (thingx1, thingy1))
  
 
-
-
 def high_score(score):
 	score_list = [0]
 	if score > score_list[0]:
 		score_list = [score]
 		print(str(score_list[0]))
-    
-    	
+	font = pygame.font.SysFont(None, 25)
+	text = font.render("Highscore:  " + str(score_list[0]), True, black)
+	gameDisplay.blit(text, (0,50))
 
 
 def car(x,y):
@@ -268,7 +264,7 @@ def game_loop():
 		car(x,y)
 		things_dodged(dodged)
 		boosts(boostcount)
-		high_score(dodged)
+		
 		thing_width1 = thing_startx +85
 		thing_height1 = thing_starty +85
 
@@ -298,14 +294,13 @@ def game_loop():
 				crash()
 
 
-		
-				
+
 
 
 
 		pygame.display.update()
 		clock.tick(60)
-
+high_score(dodged)
 game_intro()
 game_loop()
 pygame.quit()
