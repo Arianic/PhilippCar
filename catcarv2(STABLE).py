@@ -131,6 +131,9 @@ def unpause():
 	pause = False
 	pygame.mixer.music.unpause()
 
+def high_score():
+	pass
+
 
 
 
@@ -301,6 +304,8 @@ game_intro()
 game_loop()
 pygame.quit()
 quit()
+
+
 
 
 
