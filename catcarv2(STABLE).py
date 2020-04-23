@@ -89,11 +89,11 @@ def high_score(score):
 
 	'''
 	d = shelve.open('highscor2.txt') #opent een .dat, .dir en .bak file, die allemaal zijn gemaakt door shelve in bovenstaande lines
-	highscore = d['score']			 #het probleem is dat op bij de distributed versie deze files niet bestaan, en dus aangemaakt moeten worden
-	if score > highscore:			 #als ik het bovenstaande elke keer run is er veel lag, waarschijnlijk omdat ie steeds nieuwe files wil aanmaken
-		highscore = score            #ik moet dus een manier vinden om één keer de highscore file aan te maken en daarna deze lines te skippen (of gewoon een 
-		                             #extra script maken buiten de main, maar dan moet de speler deze weer eerst openen en dat lijkt me ook onhandig)
-									 #dit is allemaal erg rommelig, maar ik wil eerst kijken of ik het kan fixen
+	highscore = d['score']		 #het probleem is dat op bij de distributed versie deze files niet bestaan, en dus aangemaakt moeten worden
+	if score > highscore:		 #als ik het bovenstaande elke keer run is er veel lag, waarschijnlijk omdat ie steeds nieuwe files wil aanmaken
+		highscore = score        #ik moet dus een manier vinden om één keer de highscore file aan te maken en daarna deze lines te skippen (of gewoon een 
+		                         #extra script maken buiten de main, maar dan moet de speler deze weer eerst openen en dat lijkt me ook onhandig)
+					 #dit is allemaal erg rommelig, maar ik wil eerst kijken of ik het kan fixen
 		
 		d['score'] = highscore
 	font = pygame.font.SysFont(None, 25)
