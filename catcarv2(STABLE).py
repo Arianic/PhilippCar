@@ -1,6 +1,8 @@
 import pygame
 import time
 import random
+import shelve
+
 
 
 ''' 
@@ -54,6 +56,10 @@ thingx1 = random.randrange(0, display_width)
 thingy1 = -600
 
 
+
+       
+
+
 def quit_game():
 	pygame.quit()
 	quit()
@@ -75,13 +81,26 @@ def things(thingx, thingy, thingx1, thingy1):
  
 
 def high_score(score):
-	score_list = [0]
-	if score > score_list[0]:
-		score_list = [score]
-		print(str(score_list[0]))
+	'''
+	
+	d = shelve.open('highscor2.txt')    
+	d['score'] = score           
+	d.close()
+
+	'''
+	d = shelve.open('highscor2.txt') #opent een .dat, .dir en .bak file, die allemaal zijn gemaakt door shelve in bovenstaande lines
+	highscore = d['score']			 #het probleem is dat op bij de distributed versie deze files niet bestaan, en dus aangemaakt moeten worden
+	if score > highscore:			 #als ik het bovenstaande elke keer run is er veel lag, waarschijnlijk omdat ie steeds nieuwe files wil aanmaken
+		highscore = score            #ik moet dus een manier vinden om één keer de highscore file aan te maken en daarna deze lines te skippen (of gewoon een 
+		                             #extra script maken buiten de main, maar dan moet de speler deze weer eerst openen en dat lijkt me ook onhandig)
+									 #dit is allemaal erg rommelig, maar ik wil eerst kijken of ik het kan fixen
+		
+		d['score'] = highscore
 	font = pygame.font.SysFont(None, 25)
-	text = font.render("Highscore:  " + str(score_list[0]), True, black)
+	text = font.render("Highscore:  " + str(highscore), True, black)
 	gameDisplay.blit(text, (0,50))
+	d.close()
+
 
 
 def car(x,y):
@@ -262,8 +281,9 @@ def game_loop():
 		things(thing_startx, thing_starty, thingx1, thing_starty-300)
 		thing_starty += thing_speed
 		car(x,y)
-		things_dodged(dodged)
+		
 		boosts(boostcount)
+		
 		
 		thing_width1 = thing_startx +85
 		thing_height1 = thing_starty +85
@@ -293,14 +313,15 @@ def game_loop():
 			if x + 60 > thingx1 and x < thingx1 + 85:
 				crash()
 
-
+		things_dodged(dodged)
+		high_score(dodged)
 
 
 
 
 		pygame.display.update()
 		clock.tick(60)
-high_score(dodged)
+
 game_intro()
 game_loop()
 pygame.quit()
